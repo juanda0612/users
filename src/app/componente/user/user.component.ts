@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { UserService } from '../../servicios/user.service';
 
 @Component({
@@ -13,9 +13,10 @@ import { UserService } from '../../servicios/user.service';
 })
 export class UserComponent implements OnInit {
   id:string | null = null
+  updateLabel:string|null = null
   userForm:FormGroup
 
-  constructor(private userService:UserService, private route:ActivatedRoute, private formBuilder:FormBuilder){
+  constructor(private userService:UserService, private route:ActivatedRoute, private formBuilder:FormBuilder, private router:Router){
     this.userForm = this.formBuilder.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
@@ -72,8 +73,10 @@ export class UserComponent implements OnInit {
   onSubmit(){
     if(this.id){
       this.updateUser()
+      this.updateLabel="Datos actualizados correctamente."
     }else{
       this.createUser()
+      this.router.navigate(['/user/login']);
     }
   }
 

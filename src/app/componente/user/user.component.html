@@ -1,4 +1,4 @@
-<div class="col-10 mx-auto my-5">
+<div class="mx-auto my-3 d-flex justify-content-center">
     <img id="userimg" src="https://static-00.iconduck.com/assets.00/profile-user-icon-2048x2048-m41rxkoe.png" class="img-thumbnail" alt="...">
 </div>
 <div class="col-10 mx-auto my-5">
@@ -40,19 +40,23 @@
             <small *ngIf="userForm.get('lastName')?.errors?.['required']">*Campo requerido.</small>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-5">
           <label for="email" class="form-label">Email</label>
           <input id="email" class="form-control" formControlName="email">
           <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
             <small *ngIf="userForm.get('email')?.errors?.['required']">*Campo requerido.</small>
           </div>
         </div>
-        
-        <button type="submit" class="btn btn-primary" [class.disabled]="userForm.invalid" [disabled]="userForm.invalid" (click)="onSubmit()" routerLink="/">
-            {{id ? 'Actualizar Datos' : 'Registrar'}}
+        <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" [class.disabled]="userForm.invalid" [disabled]="userForm.invalid" (click)="onSubmit()">
+          {{id ? 'Actualizar Datos' : 'Registrar'}}
         </button>
-        <button class="btn btn-danger" *ngIf="id" [class.disabled]="userForm.invalid" [disabled]="userForm.invalid" (click)="deleteUser()" routerLink="/">
+        <button class="btn btn-danger" *ngIf="id" [class.disabled]="userForm.invalid" [disabled]="userForm.invalid" (click)="deleteUser()" routerLink="/user/logout">
           Eliminar Cuenta
         </button>
+        </div>
+        <div *ngIf="{updateLabel} != null">
+          <label>{{updateLabel}}</label>
+        </div>
       </form>
 </div>

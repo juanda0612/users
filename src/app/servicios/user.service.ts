@@ -20,11 +20,11 @@ export class UserService {
     return this.http.get<User>(`${this.url}/${id}`)
   }
 
-  validateUser(id:string|null,pass:string|null): Observable<{valid:boolean}>{
+  validateUser(id:string|null,pass:string|null): Observable<{'valid':boolean}>{
     const headers = new HttpHeaders({
-      'Content-Type':'application/json'
+      'Content-Type':'text/plain'
     })
-    return this.http.post<{valid:boolean}>(`${this.url}/validate/${id}`, JSON.stringify(pass), { headers })
+    return this.http.post<{'valid':boolean}>(`${this.url}/validate/${id}`, pass, { headers })
   }
 
   getUserProfile(id:string|null): Observable<User>{

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../servicios/user.service';
 import { User } from '../../clases/user';
 
@@ -18,7 +18,7 @@ export class UserLoginComponent /*implements OnInit*/ {
   loginError:string | null = null
   userForm:FormGroup
 
-  constructor(private userService:UserService, private route:ActivatedRoute, private formBuilder:FormBuilder){
+  constructor(private userService:UserService, private route:ActivatedRoute, private formBuilder:FormBuilder, private router:Router){
     this.userForm = this.formBuilder.group({
       userName: ['', Validators.required],
       password: ['', Validators.required]
@@ -61,34 +61,30 @@ onSubmit() {
   this.id = this.userForm.value.userName
   this.password = this.userForm.value.password
   console.log(this.id,this.password)
-  if (this.id && this.password) {
-    // Validar el usuario primero
-    this.userService.validateUser(this.id, this.password).subscribe({
-      next: (response) => {
-        if (response.valid) {
-          // Si la validación es exitosa, obtener el perfil del usuario
-          this.userService.getUserProfile(this.id).subscribe({
-            next: (user: User) => {
-              console.log('Usuario logueado:', user);
-              // Aquí puedes almacenar el usuario en un servicio o en el estado de tu aplicación
-              //this.router.navigate(['/home']); // Redirigir a la página deseada
-            },
-            error: (err) => {
-              console.error('Error al obtener el perfil:', err);
-              this.loginError = 'No se pudo obtener el perfil del usuario.';
-            }
-          });
-        } else {
-          this.loginError = 'Credenciales incorrectas. Intenta de nuevo.';
-        }
-      },
-      error: (err) => {
-        console.error('Error en la validación:', err);
-        this.loginError = 'Ocurrió un error en la validación.';
+  this.userService.validateUser(this.id, this.password).subscribe({
+    next: (response) => {
+      console.log(response)
+      if (response.valid) {
+        // Si la validación es exitosa, obtener el perfil del usuario
+        this.userService.getUserProfile(this.id).subscribe({
+          next: (user: User) => {
+            console.log('Usuario logueado:', user);
+            // Aquí puedes almacenar el usuario en un servicio o en el estado de tu aplicación
+            this.router.navigate([`/user/profile/${this.id}`]); // Redirigir a la página deseada
+          },
+          error: (err) => {
+            console.error('Error al obtener el perfil:', err);
+            this.loginError = 'No se pudo obtener el perfil del usuario.';
+          }
+        });
+      } else {
+        this.loginError = 'Credenciales incorrectas. Intenta de nuevo.';
       }
-    });
-  } else {
-    this.loginError = 'Por favor ingresa el usuario y la contraseña.';
-  }
+    },
+    error: (err) => {
+      console.error('Error en la validación:', err);
+      this.loginError = 'Ocurrió un error en la validación.';
+    }
+  });
 }
 }
