@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private url:string='http://localhost:8080/user'
+  private userIde: string|null = null
 
   constructor(private http:HttpClient) { }
 
@@ -55,6 +56,28 @@ export class UserService {
   }
 
   deleteUser(id: string|null): Observable<void>{
+    this.logout()
     return this.http.delete<void>(`${this.url}/${id}`)
+  }
+
+  login(userIde: string):void {
+    this.userIde = userIde
+    localStorage.setItem('userIde',userIde)
+  }
+
+  logout(): void{
+    this.userIde = null
+    localStorage.removeItem('userIde')
+  }
+
+  getUserIde(): string|null {
+    if(!this.userIde){
+      this.userIde = localStorage.getItem('userIde')
+    }
+    return this.userIde
+  }
+
+  isLoggedIn(): boolean {
+    return this.userIde != null
   }
 }

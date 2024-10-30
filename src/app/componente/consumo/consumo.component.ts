@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../servicios/user.service';
 
 @Component({
   selector: 'app-consumo',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
   templateUrl: './consumo.component.html',
   styleUrl: './consumo.component.css'
 })
-export class ConsumoComponent {
+export class ConsumoComponent implements OnInit {
+  userIde: string|null = null
+
+  constructor(private userService: UserService){}
+  
+  ngOnInit(){
+    this.userIde = this.userService.getUserIde()
+  }
+
+
 
 }

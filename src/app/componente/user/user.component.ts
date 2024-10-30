@@ -13,6 +13,7 @@ import { UserService } from '../../servicios/user.service';
 })
 export class UserComponent implements OnInit {
   id:string | null = null
+  userIde: string|null = null
   updateLabel:string|null = null
   userForm:FormGroup
 
@@ -27,6 +28,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userIde = this.userService.getUserIde()
     this.id = this.route.snapshot.paramMap.get('id')
     if(this.id){
       this.getUser()

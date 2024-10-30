@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../servicios/user.service';
 
 @Component({
   selector: 'app-produccion',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
   templateUrl: './produccion.component.html',
   styleUrl: './produccion.component.css'
 })
-export class ProduccionComponent {
+export class ProduccionComponent implements OnInit {
+  userIde: string|null = null
+
+  constructor(private userService: UserService){}
+  
+  ngOnInit(){
+    this.userIde = this.userService.getUserIde()
+  }
 
 }
