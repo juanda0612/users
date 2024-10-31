@@ -76,6 +76,9 @@ export class UserComponent implements OnInit {
     if(this.id){
       this.updateUser()
       this.updateLabel="Datos actualizados correctamente."
+      setTimeout(()=>{
+        window.location.reload()
+      },1000)
     }else{
       this.createUser()
       this.router.navigate(['/user/login']);
@@ -83,13 +86,16 @@ export class UserComponent implements OnInit {
   }
 
   deleteUser(){
+    const confirmacion = confirm('¿Estas seguro que deseas eliminar tu cuenta?\nEsta acción no se puede deshacer.')
+    if(confirmacion){
     this.userService.deleteUser(this.id).subscribe({
       next: response => {
         console.log('Delete request successful', response)
+        this.router.navigate(['/user/logout'])
       },
       error: error => {
         console.error('There was an error with the Delete request', error)
       }
     })
-  }
+  }}
 }
