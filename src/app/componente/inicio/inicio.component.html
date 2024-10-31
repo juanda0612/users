@@ -1,1 +1,24 @@
-<p>inicio works!</p>
+<div id="contenedor">
+    <div class="col-10 mx-auto my-4">
+      <header><h1>ENERGÍAS RENOVABLES</h1></header>
+      <img id="userimg" src="https://img.freepik.com/premium-photo/global-heat-map-concept_1105951-18768.jpg" class="img-thumbnail" alt="...">
+    </div>
+    <div class="col-10 mx-auto my-4">
+      <p>La transición energética hacia fuentes renovables es una de las mayores oportunidades y desafíos del siglo XXI. En las últimas cinco décadas, el mundo ha sido testigo de un crecimiento exponencial en la producción y consumo de energías limpias, como la eólica, solar e hidráulica. Este cambio no solo es crucial para reducir nuestra dependencia de los combustibles fósiles, sino que también es fundamental para mitigar los efectos del cambio climático y preservar nuestros recursos naturales.</p>
+      <p class="mb-5">Aprovechar de manera eficiente estas energías renovables no solo contribuye a un futuro más sostenible, sino que también impulsa la innovación y el desarrollo económico en diversas regiones del mundo. En este sitio, exploraremos datos históricos y tendencias actuales que destacan la importancia de adoptar un enfoque consciente y responsable hacia el uso de nuestros recursos energéticos.</p>
+      <div *ngIf="userIde==null"><label>Inicia Sesión para continuar</label></div>
+      <button class="btn btn-primary boton" *ngIf="userIde==null" routerLink="/user/login">
+        Iniciar Sesión
+      </button>
+      <button class="btn btn-secondary boton" *ngIf="userIde==null" routerLink="/user/signup">
+        Registrarse
+      </button>
+      <div *ngIf="userIde"><label>Ya puedes visualizar los datos!</label></div>
+      <button class="btn btn-outline-success boton" *ngIf="userIde" routerLink="/production">
+        Producción
+      </button>
+      <button class="btn btn-outline-success boton" *ngIf="userIde" routerLink="/consumption">
+        Consumo
+      </button>
+    </div>
+  </div>

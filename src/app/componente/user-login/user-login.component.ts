@@ -71,7 +71,7 @@ onSubmit() {
             console.log('Usuario logueado:', user);
             this.userService.login(user.userName);
             // Aquí puedes almacenar el usuario en un servicio o en el estado de tu aplicación
-            this.router.navigate([`/user/profile/${this.id}`]); // Redirigir a la página deseada
+            this.router.navigate(['/home']); // Redirigir a la página deseada
           },
           error: (err) => {
             console.error('Error al obtener el perfil:', err);

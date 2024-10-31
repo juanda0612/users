@@ -1,0 +1,20 @@
+#contenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+}
+  
+#contenedor > div {
+    width: 45%;
+}
+
+#userimg {
+    width: 80%;
+    margin: 20px;
+    align-self: center;
+}
+
+.boton {
+    margin: 10px;
+}
